@@ -18,26 +18,12 @@
     ];
 
     button.healing.addEventListener('click', function() {
-        pokemons.forEach(function(pokemon) {
-            pokemon.hp += random(10);
-            if (pokemon.hp > 100) {
-                pokemon.hp = 100;
-            }
-        });
+        changePokemonsHP(10, false);
         render();
-
-        function random(max) {
-            return Math.ceil(Math.random() * max);
-        }
     });
 
     button.attack.addEventListener('click', function () {
-        pokemons.forEach(function(pokemon) {
-            pokemon.hp -= random(10);
-            if (pokemon.hp < 0) {
-                pokemon.hp = 0;
-            }
-        });
+        changePokemonsHP(10, true);
         render();
 
         if (pokemons[0].hp === 0 && pokemons[1].hp === 0) {
@@ -49,12 +35,6 @@
         } else if (pokemons[1].hp === 0) {
             alert( pokemons[0].name + ' win!');
             init();
-        }
-
-        render();
-
-        function random(max) {
-            return Math.ceil(Math.random() * max);
         }
     });
 
@@ -70,6 +50,26 @@
     function render() {
         pokemons.forEach(function(pokemon) {
             pokemon.health.style.width = pokemon.hp + '%';
+        });
+    }
+
+    function random(max) {
+        return Math.ceil(Math.random() * max);
+    }
+
+    function changePokemonsHP(maxHP, isAttack) {
+        pokemons.forEach(function(pokemon) {
+            const deltaHP = random(maxHP);
+            if (isAttack) {
+                pokemon.hp -= deltaHP;
+            } else {
+                pokemon.hp += deltaHP;
+            }
+            if (pokemon.hp < 0) {
+                pokemon.hp = 0;
+            } else if (pokemon.hp > 100) {
+                pokemon.hp = 100;
+            }
         });
     }
 }());
