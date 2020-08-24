@@ -37,8 +37,9 @@ body {
 }
 
 .hp {
+    position: relative;
     width: 100%;
-    height: 20px;
+    height: 30px;
     border: 2px solid #ccc;
     border-radius: 10px;
 
@@ -48,6 +49,12 @@ body {
     width: 100%;
     height: 100%;
     background-color: green;
+}
+.hp-value {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 60px;
 }
 
 .control {

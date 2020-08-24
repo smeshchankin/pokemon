@@ -8,11 +8,13 @@
         {
             name: document.querySelector('#player .name').textContent,
             health: document.querySelector('#player .health'),
+            healthValue: document.querySelector('#player .hp-value'),
             hp: 100
         },
         {
             name: document.querySelector('#enemy .name').textContent,
             health: document.querySelector('#enemy .health'),
+            healthValue: document.querySelector('#enemy .hp-value'),
             hp: 100
         }
     ];
@@ -50,6 +52,7 @@
     function render() {
         pokemons.forEach(function(pokemon) {
             pokemon.health.style.width = pokemon.hp + '%';
+            pokemon.healthValue.textContent = pokemon.hp + ' / 100';
         });
     }
 
