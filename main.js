@@ -1,6 +1,7 @@
 (function() {
     const button = {
-        attack: document.getElementById('attack')
+        attack: document.getElementById('attack'),
+        healing: document.getElementById('healing')
     };
 
     pokemons = [
@@ -15,6 +16,20 @@
             hp: 100
         }
     ];
+
+    button.healing.addEventListener('click', function() {
+        pokemons.forEach(function(pokemon) {
+            pokemon.hp += random(10);
+            if (pokemon.hp > 100) {
+                pokemon.hp = 100;
+            }
+        });
+        render();
+
+        function random(max) {
+            return Math.ceil(Math.random() * max);
+        }
+    });
 
     button.attack.addEventListener('click', function () {
         pokemons.forEach(function(pokemon) {
