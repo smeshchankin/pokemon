@@ -22,6 +22,8 @@
     button.healing.addEventListener('click', function() {
         changePokemonsHP(10, false);
         render();
+
+        this.disabled = true;
     });
 
     button.attack.addEventListener('click', function () {
@@ -47,6 +49,8 @@
             pokemon.hp = 100;
         });
         render();
+
+        button.healing.disabled = false;
     }
 
     function render() {

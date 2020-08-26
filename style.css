@@ -65,7 +65,7 @@ body {
 
     margin-top: 50px;
 }
-.control button {
+button {
     color: brown;
     font-size: 20px;
 
@@ -76,4 +76,9 @@ body {
     background: none;
     border: 2px solid tomato;
     border-radius: 10px;
+}
+
+button:disabled {
+    color: #666;
+    border-color: #666;
 }
