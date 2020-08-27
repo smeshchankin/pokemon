@@ -4,6 +4,29 @@
         healing: document.getElementById('healing')
     };
 
+    const player = {
+        name: 'Player',
+        pokemons: [
+            {
+                name: 'Pikachu',
+                health: document.querySelector('#player .health'),
+                healthValue: document.querySelector('#player .hp-value'),
+                hp: 100
+            }
+        ]
+    };
+    const enemy = {
+        name: 'Enemy',
+        pokemons: [
+            {
+                name: 'Charmander',
+                health: document.querySelector('#enemy .health'),
+                healthValue: document.querySelector('#enemy .hp-value'),
+                hp: 100
+            }
+        ]
+    };
+
     pokemons = [
         {
             name: document.querySelector('#player .name').textContent,
@@ -30,14 +53,14 @@
         changePokemonsHP(10, true);
         render();
 
-        if (pokemons[0].hp === 0 && pokemons[1].hp === 0) {
+        if (player.pokemons[0].hp === 0 && enemy.pokemons[0].hp === 0) {
             alert('Frendship wins!');
             init();
-        } else if (pokemons[0].hp === 0) {
-            alert( pokemons[1].name + ' win!');
+        } else if (player.pokemons[0].hp === 0) {
+            alert(enemy.name + ' win!');
             init();
-        } else if (pokemons[1].hp === 0) {
-            alert( pokemons[0].name + ' win!');
+        } else if (enemy.pokemons[0].hp === 0) {
+            alert(player.name + ' win!');
             init();
         }
     });
@@ -45,7 +68,10 @@
     init();
 
     function init() {
-        pokemons.forEach(function(pokemon) {
+        player.pokemons.forEach(function(pokemon) {
+            pokemon.hp = 100;
+        });
+        enemy.pokemons.forEach(function(pokemon) {
             pokemon.hp = 100;
         });
         render();
@@ -54,7 +80,11 @@
     }
 
     function render() {
-        pokemons.forEach(function(pokemon) {
+        player.pokemons.forEach(function(pokemon) {
+            pokemon.health.style.width = pokemon.hp + '%';
+            pokemon.healthValue.textContent = pokemon.hp + ' / 100';
+        });
+        enemy.pokemons.forEach(function(pokemon) {
             pokemon.health.style.width = pokemon.hp + '%';
             pokemon.healthValue.textContent = pokemon.hp + ' / 100';
         });
@@ -65,7 +95,21 @@
     }
 
     function changePokemonsHP(maxHP, isAttack) {
-        pokemons.forEach(function(pokemon) {
+        player.pokemons.forEach(function(pokemon) {
+            const deltaHP = random(maxHP);
+            if (isAttack) {
+                pokemon.hp -= deltaHP;
+            } else {
+                pokemon.hp += deltaHP;
+            }
+            if (pokemon.hp < 0) {
+                pokemon.hp = 0;
+            } else if (pokemon.hp > 100) {
+                pokemon.hp = 100;
+            }
+        });
+
+        enemy.pokemons.forEach(function(pokemon) {
             const deltaHP = random(maxHP);
             if (isAttack) {
                 pokemon.hp -= deltaHP;
