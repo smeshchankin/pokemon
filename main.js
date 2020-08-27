@@ -4,28 +4,30 @@
         healing: document.getElementById('healing')
     };
 
-    const player = {
-        name: 'Player',
-        pokemons: [
-            {
-                name: 'Pikachu',
-                health: document.querySelector('#player .health'),
-                healthValue: document.querySelector('#player .hp-value'),
-                hp: 100
-            }
-        ]
-    };
-    const enemy = {
-        name: 'Enemy',
-        pokemons: [
-            {
-                name: 'Charmander',
-                health: document.querySelector('#enemy .health'),
-                healthValue: document.querySelector('#enemy .hp-value'),
-                hp: 100
-            }
-        ]
-    };
+    const players = [
+        {
+            name: 'Player',
+            pokemons: [
+                {
+                    name: 'Pikachu',
+                    health: document.querySelector('#player .health'),
+                    healthValue: document.querySelector('#player .hp-value'),
+                    hp: 100
+                }
+            ]
+        },
+        {
+            name: 'Enemy',
+            pokemons: [
+                {
+                    name: 'Charmander',
+                    health: document.querySelector('#enemy .health'),
+                    healthValue: document.querySelector('#enemy .hp-value'),
+                    hp: 100
+                }
+            ]
+        }
+    ];
 
     button.healing.addEventListener('click', function() {
         changePokemonsHP(10, false);
@@ -38,14 +40,14 @@
         changePokemonsHP(10, true);
         render();
 
-        if (player.pokemons[0].hp === 0 && enemy.pokemons[0].hp === 0) {
+        if (players[0].pokemons[0].hp === 0 && players[1].pokemons[0].hp === 0) {
             alert('Frendship wins!');
             init();
-        } else if (player.pokemons[0].hp === 0) {
-            alert(enemy.name + ' win!');
+        } else if (players[0].pokemons[0].hp === 0) {
+            alert(players[1].name + ' win!');
             init();
-        } else if (enemy.pokemons[0].hp === 0) {
-            alert(player.name + ' win!');
+        } else if (players[1].pokemons[0].hp === 0) {
+            alert(players[0].name + ' win!');
             init();
         }
     });
@@ -53,11 +55,10 @@
     init();
 
     function init() {
-        player.pokemons.forEach(function(pokemon) {
-            pokemon.hp = 100;
-        });
-        enemy.pokemons.forEach(function(pokemon) {
-            pokemon.hp = 100;
+        players.forEach(function(player) {
+            player.pokemons.forEach(function(pokemon) {
+                pokemon.hp = 100;
+            });
         });
         render();
 
@@ -65,13 +66,11 @@
     }
 
     function render() {
-        player.pokemons.forEach(function(pokemon) {
-            pokemon.health.style.width = pokemon.hp + '%';
-            pokemon.healthValue.textContent = pokemon.hp + ' / 100';
-        });
-        enemy.pokemons.forEach(function(pokemon) {
-            pokemon.health.style.width = pokemon.hp + '%';
-            pokemon.healthValue.textContent = pokemon.hp + ' / 100';
+        players.forEach(function(player) {
+            player.pokemons.forEach(function(pokemon) {
+                pokemon.health.style.width = pokemon.hp + '%';
+                pokemon.healthValue.textContent = pokemon.hp + ' / 100';
+            });
         });
     }
 
@@ -80,32 +79,20 @@
     }
 
     function changePokemonsHP(maxHP, isAttack) {
-        player.pokemons.forEach(function(pokemon) {
-            const deltaHP = random(maxHP);
-            if (isAttack) {
-                pokemon.hp -= deltaHP;
-            } else {
-                pokemon.hp += deltaHP;
-            }
-            if (pokemon.hp < 0) {
-                pokemon.hp = 0;
-            } else if (pokemon.hp > 100) {
-                pokemon.hp = 100;
-            }
-        });
-
-        enemy.pokemons.forEach(function(pokemon) {
-            const deltaHP = random(maxHP);
-            if (isAttack) {
-                pokemon.hp -= deltaHP;
-            } else {
-                pokemon.hp += deltaHP;
-            }
-            if (pokemon.hp < 0) {
-                pokemon.hp = 0;
-            } else if (pokemon.hp > 100) {
-                pokemon.hp = 100;
-            }
+        players.forEach(function (player) {
+            player.pokemons.forEach(function(pokemon) {
+                const deltaHP = random(maxHP);
+                if (isAttack) {
+                    pokemon.hp -= deltaHP;
+                } else {
+                    pokemon.hp += deltaHP;
+                }
+                if (pokemon.hp < 0) {
+                    pokemon.hp = 0;
+                } else if (pokemon.hp > 100) {
+                    pokemon.hp = 100;
+                }
+            });
         });
     }
 }());
