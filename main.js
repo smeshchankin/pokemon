@@ -58,10 +58,8 @@
     init();
 
     function init() {
-        players.forEach(function(player) {
-            player.pokemons.forEach(function(pokemon) {
-                pokemon.hp = 100;
-            });
+        processPokemons(function(pokemon) {
+            pokemon.hp = 100;
         });
         render();
 
@@ -69,11 +67,9 @@
     }
 
     function render() {
-        players.forEach(function(player) {
-            player.pokemons.forEach(function(pokemon) {
-                pokemon.health.style.width = pokemon.hp + '%';
-                pokemon.healthValue.textContent = pokemon.hp + ' / 100';
-            });
+        processPokemons(function(pokemon) {
+            pokemon.health.style.width = pokemon.hp + '%';
+            pokemon.healthValue.textContent = pokemon.hp + ' / 100';
         });
     }
 
@@ -82,19 +78,26 @@
     }
 
     function changePokemonsHP(maxHP, isAttack) {
+        processPokemons(function(pokemon) {
+            const deltaHP = random(maxHP);
+            if (isAttack) {
+                pokemon.hp -= deltaHP;
+            } else {
+                pokemon.hp += deltaHP;
+            }
+
+            if (pokemon.hp < 0) {
+                pokemon.hp = 0;
+            } else if (pokemon.hp > 100) {
+                pokemon.hp = 100;
+            }
+        });
+    }
+
+    function processPokemons(callback) {
         players.forEach(function (player) {
             player.pokemons.forEach(function(pokemon) {
-                const deltaHP = random(maxHP);
-                if (isAttack) {
-                    pokemon.hp -= deltaHP;
-                } else {
-                    pokemon.hp += deltaHP;
-                }
-                if (pokemon.hp < 0) {
-                    pokemon.hp = 0;
-                } else if (pokemon.hp > 100) {
-                    pokemon.hp = 100;
-                }
+                callback(pokemon);
             });
         });
     }
