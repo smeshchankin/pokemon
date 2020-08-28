@@ -40,14 +40,17 @@
         changePokemonsHP(10, true);
         render();
 
+        const msg = null;
         if (players[0].pokemons[0].hp === 0 && players[1].pokemons[0].hp === 0) {
-            alert('Frendship wins!');
-            init();
+            msg = 'Frendship wins!';
         } else if (players[0].pokemons[0].hp === 0) {
-            alert(players[1].name + ' win!');
-            init();
+            msg = players[1].name + ' win!';
         } else if (players[1].pokemons[0].hp === 0) {
-            alert(players[0].name + ' win!');
+            msg = players[0].name + ' win!';
+        }
+
+        if (msg) {
+            alert(msg);
             init();
         }
     });
