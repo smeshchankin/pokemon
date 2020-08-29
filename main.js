@@ -12,7 +12,8 @@
                     name: 'Pikachu',
                     health: document.querySelector('#player .health'),
                     healthValue: document.querySelector('#player .hp-value'),
-                    hp: 100
+                    hp: 100,
+                    maxHP: 100
                 }
             ]
         },
@@ -23,7 +24,8 @@
                     name: 'Charmander',
                     health: document.querySelector('#enemy .health'),
                     healthValue: document.querySelector('#enemy .hp-value'),
-                    hp: 100
+                    hp: 100,
+                    maxHP: 100
                 }
             ]
         }
@@ -59,7 +61,7 @@
 
     function init() {
         processPokemons(function(pokemon) {
-            pokemon.hp = 100;
+            pokemon.hp = pokemon.maxHP;
         });
         render();
 
@@ -69,7 +71,7 @@
     function render() {
         processPokemons(function(pokemon) {
             pokemon.health.style.width = pokemon.hp + '%';
-            pokemon.healthValue.textContent = pokemon.hp + ' / 100';
+            pokemon.healthValue.textContent = pokemon.hp + ' / ' + pokemon.maxHP;
         });
     }
 
@@ -88,8 +90,8 @@
 
             if (pokemon.hp < 0) {
                 pokemon.hp = 0;
-            } else if (pokemon.hp > 100) {
-                pokemon.hp = 100;
+            } else if (pokemon.hp > pokemon.maxHP) {
+                pokemon.hp = pokemon.maxHP;
             }
         });
     }
