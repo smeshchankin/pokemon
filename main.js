@@ -15,7 +15,8 @@
                     hp: 100,
                     maxHP: 100
                 }
-            ]
+            ],
+            hasLost: hasLost
         },
         {
             name: 'Enemy',
@@ -27,7 +28,8 @@
                     hp: 100,
                     maxHP: 100
                 }
-            ]
+            ],
+            hasLost: hasLost
         }
     ];
 
@@ -42,12 +44,12 @@
         changePokemonsHP(10, true);
         render();
 
-        const msg = null;
-        if (players[0].pokemons[0].hp === 0 && players[1].pokemons[0].hp === 0) {
+        let msg = null;
+        if (players[0].hasLost() && players[1].hasLost()) {
             msg = 'Frendship wins!';
-        } else if (players[0].pokemons[0].hp === 0) {
+        } else if (players[0].hasLost()) {
             msg = players[1].name + ' win!';
-        } else if (players[1].pokemons[0].hp === 0) {
+        } else if (players[1].hasLost()) {
             msg = players[0].name + ' win!';
         }
 
@@ -58,6 +60,10 @@
     });
 
     init();
+
+    function hasLost() {
+        return this.pokemons[0].hp === 0;
+    }
 
     function init() {
         processPokemons(function(pokemon) {
