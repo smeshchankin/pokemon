@@ -34,14 +34,14 @@
     ];
 
     button.healing.addEventListener('click', function() {
-        changePokemonsHP(10, false);
+        changePokemonsHP(10, 20, false);
         render();
 
         this.disabled = true;
     });
 
     button.attack.addEventListener('click', function () {
-        changePokemonsHP(10, true);
+        changePokemonsHP(5, 10, true);
         render();
 
         let msg = null;
@@ -81,11 +81,11 @@
         });
     }
 
-    function random(max) {
-        return Math.ceil(Math.random() * max);
+    function random(min, max) {
+        return Math.ceil(min + Math.random() * (max - min));
     }
 
-    function changePokemonsHP(maxHP, isAttack) {
+    function changePokemonsHP(minHP, maxHP, isAttack) {
         processPokemons(function(pokemon) {
             const deltaHP = random(maxHP);
             if (isAttack) {
