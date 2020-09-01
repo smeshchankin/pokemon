@@ -13,7 +13,8 @@
                     health: document.querySelector('#player .health'),
                     healthValue: document.querySelector('#player .hp-value'),
                     hp: 100,
-                    maxHP: 100
+                    maxHP: 100,
+                    historyHP: []
                 }
             ],
             hasLost: hasLost
@@ -26,7 +27,8 @@
                     health: document.querySelector('#enemy .health'),
                     healthValue: document.querySelector('#enemy .hp-value'),
                     hp: 100,
-                    maxHP: 100
+                    maxHP: 100,
+                    historyHP: []
                 }
             ],
             hasLost: hasLost
@@ -68,6 +70,7 @@
     function init() {
         processPokemons(function(pokemon) {
             pokemon.hp = pokemon.maxHP;
+            pokemon.historyHP = [];
         });
         render();
 
@@ -90,8 +93,10 @@
             const deltaHP = random(maxHP);
             if (isAttack) {
                 pokemon.hp -= deltaHP;
+                pokemon.historyHP.push(-deltaHP);
             } else {
                 pokemon.hp += deltaHP;
+                pokemon.historyHP.push(+deltaHP);
             }
 
             if (pokemon.hp < 0) {
