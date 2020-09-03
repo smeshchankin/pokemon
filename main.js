@@ -92,18 +92,13 @@
         processPokemons(function(pokemon) {
             const deltaHP = random(minHP, maxHP);
             if (isAttack) {
-                pokemon.hp -= deltaHP;
-                pokemon.historyHP.push(-deltaHP);
+                deltaHP = -Math.min(deltaHP, pokemon.hp);
             } else {
-                pokemon.hp += deltaHP;
-                pokemon.historyHP.push(+deltaHP);
+                deltaHP = Math.min(deltaHP, pokemon.maxHP - pokemon.hp);
             }
 
-            if (pokemon.hp < 0) {
-                pokemon.hp = 0;
-            } else if (pokemon.hp > pokemon.maxHP) {
-                pokemon.hp = pokemon.maxHP;
-            }
+            pokemon.hp += deltaHP;
+            pokemon.historyHP.push(deltaHP);
         });
     }
 
