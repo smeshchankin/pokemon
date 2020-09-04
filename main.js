@@ -1,7 +1,8 @@
 (function() {
     const button = {
         attack: document.getElementById('attack'),
-        healing: document.getElementById('healing')
+        healing: document.getElementById('healing'),
+        ultra: document.getElementById('ultra')
     };
 
     const players = [
@@ -59,6 +60,11 @@
             alert(msg);
             init();
         }
+    });
+
+    button.ultra.addEventListener('click', function () {
+        changePokemonsHP(20, 30, true);
+        render();
     });
 
     init();
