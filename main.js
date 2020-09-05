@@ -44,7 +44,17 @@
     });
 
     button.attack.addEventListener('click', function () {
-        changePokemonsHP(5, 10, true);
+        attack(5, 10);
+    });
+
+    button.ultra.addEventListener('click', function () {
+        attack(20, 30);
+    });
+
+    init();
+
+    function attack(minHP, maxHP) {
+        changePokemonsHP(minHP, maxHP, true);
         render();
 
         let msg = null;
@@ -60,14 +70,7 @@
             alert(msg);
             init();
         }
-    });
-
-    button.ultra.addEventListener('click', function () {
-        changePokemonsHP(20, 30, true);
-        render();
-    });
-
-    init();
+    }
 
     function hasLost() {
         return this.pokemons[0].hp === 0;
