@@ -99,7 +99,7 @@
 
     function changePokemonsHP(minHP, maxHP, isAttack) {
         processPokemons(function(pokemon) {
-            const deltaHP = random(minHP, maxHP);
+            let deltaHP = random(minHP, maxHP);
             if (isAttack) {
                 deltaHP = -Math.min(deltaHP, pokemon.hp);
             } else {
