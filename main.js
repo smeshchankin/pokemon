@@ -49,6 +49,8 @@
 
     button.ultra.addEventListener('click', function () {
         attack(20, 30);
+
+        this.disabled = true;
     });
 
     init();
@@ -84,6 +86,7 @@
         render();
 
         button.healing.disabled = false;
+        button.ultra.disabled = false;
     }
 
     function render() {
